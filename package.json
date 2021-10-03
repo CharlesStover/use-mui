@@ -1,0 +1,81 @@
+{
+  "name": "package-name",
+  "version": "1.0.0",
+  "author": "Charles Stover <PACKAGE-NAME@charlesstover.com>",
+  "description": "DESCRIPTION",
+  "homepage": "https://www.npmjs.com/package/PACKAGE-NAME",
+  "license": "MIT",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.js",
+  "packageManager": "yarn@3.0.2",
+  "type": "module",
+  "types": "./types/index.d.ts",
+  "bugs": {
+    "email": "PACKAGE-NAME@charlesstover.com",
+    "url": "https://github.com/CharlesStover/PACKAGE-NAME/issues"
+  },
+  "directories": {
+    "lib": "src"
+  },
+  "files": [
+    "dist",
+    "types"
+  ],
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/CharlesStover"
+  },
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/cjs/index.cjs",
+    "module": "./dist/esm/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CharlesStover/PACKAGE-NAME.git"
+  },
+  "scripts": {
+    "eslint": "eslint src",
+    "jest": "jest",
+    "jest-watch": "jest --coverage=false --watch",
+    "rollup": "rollup --config",
+    "rollup-watch": "rollup --config --watch"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-json": "^4.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@rollup/plugin-url": "^6.0.0",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/react-hooks": "^7.0.0",
+    "@types/jest": "^27.0.0",
+    "@types/node": "^16.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.0.0",
+    "@typescript-eslint/parser": "^4.0.0",
+    "@yarnpkg/sdks": "^2.0.0",
+    "eslint": "^7.0.0",
+    "eslint-config-prettier": "^8.0.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.0.0",
+    "eslint-plugin-react-hooks": "^4.0.0",
+    "jest": "^27.0.0",
+    "node-sass": "^6.0.0",
+    "postcss-url": "^10.0.0",
+    "prettier": "^2.0.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-test-renderer": "^17.0.0",
+    "rollup": "^2.0.0",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "ts-jest": "^27.0.0",
+    "tslib": "^2.0.0",
+    "typescript": "^4.4.3"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  }
+}

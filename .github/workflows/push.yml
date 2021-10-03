@@ -1,0 +1,103 @@
+name: Push
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          cache: yarn
+          check-latest: true
+          node-version: 'lts/*'
+      - name: Install dependencies
+        run: yarn install
+
+  eslint:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          cache: yarn
+          check-latest: true
+          node-version: 'lts/*'
+      - name: Install dependencies
+        run: yarn install
+      - name: Lint
+        run: yarn eslint
+
+  jest:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          cache: yarn
+          check-latest: true
+          node-version: 'lts/*'
+      - name: Install dependencies
+        run: yarn install
+      - name: Test
+        run: yarn jest
+
+  rollup:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          cache: yarn
+          check-latest: true
+          node-version: 'lts/*'
+      - name: Install dependencies
+        run: yarn install
+      - name: Build
+        run: yarn rollup
+      - name: Upload build
+        uses: actions/upload-artifact@v2
+        with:
+          if-no-files-found: error
+          name: rollup
+          path: |
+            dist
+            types
+
+  publish:
+    needs: [eslint, jest, rollup]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          cache: yarn
+          check-latest: true
+          node-version: 'lts/*'
+      - name: Download build
+        uses: actions/download-artifact@v2
+        with:
+          name: rollup
+          path: .
+      - name: Publish
+        run: >
+          yarn config set npmAuthToken $NPM_AUTH_TOKEN;
+          yarn npm publish --tolerate-republish;
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+on:
+  push:
+    branches: [main]
