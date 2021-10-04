@@ -1,32 +1,68 @@
-# Node package
+# React hooks for Material UI
 
-[![version](https://img.shields.io/npm/v/PACKAGE-NAME.svg)](https://www.npmjs.com/package/PACKAGE-NAME)
-[![minzipped size](https://img.shields.io/bundlephobia/minzip/PACKAGE-NAME.svg)](https://www.npmjs.com/package/PACKAGE-NAME)
-[![downloads](https://img.shields.io/npm/dt/PACKAGE-NAME.svg)](https://www.npmjs.com/package/PACKAGE-NAME)
-[![GitHub Action: Push](https://github.com/CharlesStover/PACKAGE-NAME/actions/workflows/push.yml/badge.svg)](https://github.com/CharlesStover/PACKAGE-NAME/actions/workflows/push.yml)
+[![version](https://img.shields.io/npm/v/use-mui.svg)](https://www.npmjs.com/package/use-mui)
+[![minzipped size](https://img.shields.io/bundlephobia/minzip/use-mui.svg)](https://www.npmjs.com/package/use-mui)
+[![downloads](https://img.shields.io/npm/dt/use-mui.svg)](https://www.npmjs.com/package/use-mui)
+[![GitHub Action: Push](https://github.com/CharlesStover/use-mui/actions/workflows/push.yml/badge.svg)](https://github.com/CharlesStover/use-mui/actions/workflows/push.yml)
 
 Description
 
 ## Install
 
-- `npm install package-name` or
-- `yarn add package-name`
+- `npm install use-mui` or
+- `yarn add use-mui`
 
-## Use
+## Supported components
+
+### `Pagination`
 
 ```javascript
-import packageName from 'package-name';
+import Pagination from '@mui/material/Pagination';
+import { usePagination } from 'use-mui';
 
-packageName();
+function MyPagination() {
+  const { handleChange, page } = usePagination();
+  return <Pagination onChange={handleChange} page={page} />;
+}
 ```
 
-## API
+`usePagination` accepts one optional object parameter:
 
-API
+- `defaultPage` optionally specifies the default page.
+- `onChange` optionally specifies a callback fired when the pagination changes.
+
+### `TablePagination`
+
+```javascript
+import TablePagination from '@mui/material/TablePagination';
+import { useTablePagination } from 'use-mui';
+
+function MyTablePagination() {
+  const { handlePageChange, handleRowsPerPageChange, page, rowsPerPage } =
+    usePagination();
+  return (
+    <TablePagination
+      onPageChange={handlePageChange}
+      onRowsPerPageChange={handleRowsPerPageChange}
+      page={page}
+      rowsPerPage={rowsPerPage}
+    />
+  );
+}
+```
+
+`useTablePagination` accepts one optional object parameter:
+
+- `defaultPage` optionally specifies the default page.
+- `defaultRowsPerPage` optionally specifies the default rows per page.
+- `onPageChange` optionally specifies a callback that fires when the page
+  changes.
+- `onRowsPerPageChange` optionally specifies a callback that fires when the rows
+  per page change.
 
 ## Contributing
 
 - `yarn set version latest`
-- `yarn up * @*/*`
+- `yarn up "*" "@*/*"`
 - If you use VIM, run `yarn sdks vim`.
 - If you use Visual Studio Code, run `yarn sdks vscode`.
