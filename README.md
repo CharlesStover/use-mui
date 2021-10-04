@@ -31,6 +31,26 @@ function MyPagination() {
 - `defaultPage` optionally specifies the default page.
 - `onChange` optionally specifies a callback fired when the pagination changes.
 
+### `StaticDatePicker`
+
+For the `StaticDatePicker` component, use the
+[`useDateTimePicker`](#datetimepicker) hook.
+
+### `StaticDateRangePicker`
+
+For the `StaticDateRangePicker` component, use the
+[`useDateRangePicker`](#daterangepicker) hook.
+
+### `StaticDateTimePicker`
+
+For the `StaticDateTimePicker` component, use the
+[`useDateTimePicker`](#datetimepicker) hook.
+
+### `StaticTimePicker`
+
+For the `StaticTimePicker` component, use the
+[`useDateTimePicker`](#datetimepicker) hook.
+
 ### `TablePagination`
 
 ```javascript
@@ -59,6 +79,11 @@ function MyTablePagination() {
   changes.
 - `onRowsPerPageChange` optionally specifies a callback that fires when the rows
   per page change.
+
+### `TimePicker`
+
+For the `TimePicker` component, use the [`useDateTimePicker`](#datetimepicker)
+hook.
 
 ## Contributing
 

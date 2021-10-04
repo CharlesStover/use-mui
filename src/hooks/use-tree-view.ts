@@ -12,7 +12,7 @@ interface Props {
     | undefined;
 }
 
-interface State {
+export interface State {
   readonly expanded: readonly string[];
   readonly selected: string | readonly string[];
   readonly setExpanded: Dispatch<SetStateAction<readonly string[]>>;

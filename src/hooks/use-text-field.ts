@@ -8,7 +8,7 @@ interface Props {
     | undefined;
 }
 
-interface State {
+export interface State {
   readonly handleChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   readonly setValue: Dispatch<SetStateAction<string>>;
   readonly value: string;

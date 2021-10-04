@@ -8,7 +8,7 @@ interface Props {
     | undefined;
 }
 
-interface State {
+export interface State {
   readonly handleChange: (event: SyntheticEvent, value: number | false) => void;
   readonly setValue: Dispatch<SetStateAction<number | false>>;
   readonly value: number | false;

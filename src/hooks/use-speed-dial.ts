@@ -16,7 +16,7 @@ export interface State {
 
 const DEFAULT_PROPS: Props = {};
 
-export default function useTooltip(props: Props = DEFAULT_PROPS): State {
+export default function useSpeedDial(props: Props = DEFAULT_PROPS): State {
   const { defaultOpen = false, onClose, onOpen } = props;
 
   const [open, setOpen] = useState(defaultOpen);

@@ -14,7 +14,7 @@ interface UntypedProps<T> extends Props<T> {
   readonly defaultValue?: undefined;
 }
 
-interface State<T> {
+export interface State<T> {
   readonly handleChange: (event: MouseEvent<HTMLElement>, value: T) => void;
   readonly setValue: Dispatch<SetStateAction<T>>;
   readonly value: T;
