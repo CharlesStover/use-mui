@@ -28,7 +28,7 @@ export interface State {
 const DEFAULT_PROPS: Props = {};
 const DEFAULT_VALUE = 0;
 
-export default function useTextField(props: Props = DEFAULT_PROPS): State {
+export default function useSlider(props: Props = DEFAULT_PROPS): State {
   const { defaultActiveThumb, defaultValue = DEFAULT_VALUE, onChange } = props;
 
   const [activeThumb, setActiveThumb] = useState(defaultActiveThumb);

@@ -31,6 +31,10 @@ function MyPagination() {
 - `defaultPage` optionally specifies the default page.
 - `onChange` optionally specifies a callback fired when the pagination changes.
 
+### `SliderUnstyled`
+
+For the `SliderUnstyled` component, use the [`useSlider`](#slider) hook.
+
 ### `StaticDatePicker`
 
 For the `StaticDatePicker` component, use the
