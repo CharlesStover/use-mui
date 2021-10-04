@@ -1,6 +1,5 @@
-import type { Dispatch, MouseEvent, SetStateAction } from 'react';
+import type { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from 'react';
 import { useCallback, useState } from 'react';
-import type ReadonlyChangeEvent from '../types/readonly-change-event';
 
 export interface Props {
   readonly defaultPage?: number | undefined;
@@ -9,9 +8,7 @@ export interface Props {
     | ((event: MouseEvent<HTMLButtonElement> | null, page: number) => void)
     | undefined;
   readonly onRowsPerPageChange?: (
-    event: Readonly<
-      ReadonlyChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    >,
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
 }
 
@@ -25,9 +22,7 @@ export interface State {
     page: number,
   ) => void;
   readonly handleRowsPerPageChange: (
-    event: Readonly<
-      ReadonlyChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    >,
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
 }
 
@@ -67,11 +62,7 @@ export default function useTablePagination(
     ),
 
     handleRowsPerPageChange: useCallback(
-      (
-        e: Readonly<
-          ReadonlyChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-        >,
-      ) => {
+      (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setPage(FIRST_PAGE);
 
         const newRowsPerPage: number = parseInt(e.target.value, 10);

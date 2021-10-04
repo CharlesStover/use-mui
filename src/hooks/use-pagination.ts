@@ -1,21 +1,17 @@
-import type { Dispatch, SetStateAction } from 'react';
+import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { useCallback, useState } from 'react';
-import type ReadonlyChangeEvent from '../types/readonly-change-event';
 
 export interface Props {
   readonly defaultPage?: number | undefined;
   readonly onChange?:
-    | ((event: Readonly<ReadonlyChangeEvent>, page: number) => void)
+    | ((event: ChangeEvent<unknown>, page: number) => void)
     | undefined;
 }
 
 export interface State {
+  readonly handleChange: (event: ChangeEvent<unknown>, page: number) => void;
   readonly page: number;
   readonly setPage: Dispatch<SetStateAction<number>>;
-  readonly handleChange: (
-    event: Readonly<ReadonlyChangeEvent>,
-    page: number,
-  ) => void;
 }
 
 const DEFAULT_PAGE = 0;
@@ -32,7 +28,7 @@ export default function usePagination(props: Props = DEFAULT_PROPS): State {
     setPage,
 
     handleChange: useCallback(
-      (e: Readonly<ReadonlyChangeEvent>, newPage: number): void => {
+      (e: ChangeEvent<unknown>, newPage: number): void => {
         setPage(newPage);
         if (typeof onChange === 'function') {
           onChange(e, newPage);
