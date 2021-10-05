@@ -1,6 +1,7 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import type { ChangeEvent } from 'react';
 import { usePagination } from '..';
+import describeSetter from '../test-utils/describe-setter';
 import TestChangeEvent from '../test-utils/test-change-event';
 
 const FIRST_PAGE = 0;
@@ -56,14 +57,5 @@ describe('usePagination', (): void => {
     });
   });
 
-  describe('setPage', (): void => {
-    it('should set `page`', (): void => {
-      const { result } = renderHook(usePagination);
-      expect(result.current.page).not.toBe(SECOND_PAGE);
-      act((): void => {
-        result.current.setPage(SECOND_PAGE);
-      });
-      expect(result.current.page).toBe(SECOND_PAGE);
-    });
-  });
+  describeSetter(usePagination, 'setPage', 'page', SECOND_PAGE);
 });

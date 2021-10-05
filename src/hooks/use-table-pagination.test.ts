@@ -1,5 +1,6 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 import { useTablePagination } from '..';
+import describeSetter from '../test-utils/describe-setter';
 
 const FIRST_PAGE = 0;
 const LIMITLESS = -1;
@@ -39,25 +40,6 @@ describe('useTablePagination', (): void => {
     });
   });
 
-  describe('setPage', (): void => {
-    it('should set `page`', (): void => {
-      const { result } = renderHook(useTablePagination);
-      expect(result.current.page).not.toBe(SECOND_PAGE);
-      act((): void => {
-        result.current.setPage(SECOND_PAGE);
-      });
-      expect(result.current.page).toBe(SECOND_PAGE);
-    });
-  });
-
-  describe('setRowsPerPage', (): void => {
-    it('should set `rowsPerPage`', (): void => {
-      const { result } = renderHook(useTablePagination);
-      expect(result.current.rowsPerPage).not.toBe(TEN);
-      act((): void => {
-        result.current.setRowsPerPage(TEN);
-      });
-      expect(result.current.rowsPerPage).toBe(TEN);
-    });
-  });
+  describeSetter(useTablePagination, 'setPage', 'page', SECOND_PAGE);
+  describeSetter(useTablePagination, 'setRowsPerPage', 'rowsPerPage', TEN);
 });
