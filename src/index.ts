@@ -1,5 +1,14 @@
+export type { State as DateRangePickerState } from './hooks/use-date-range-picker';
 export type { State as DateTimePickerState } from './hooks/use-date-time-picker';
 export type { State as PaginationState } from './hooks/use-pagination';
+export type { State as PopoverState } from './hooks/use-popover';
+export type { State as RadioState } from './hooks/use-radio';
+export type { State as RadioGroupState } from './hooks/use-radio-group';
+export type { State as RatingState } from './hooks/use-rating';
+export type { State as SelectState } from './hooks/use-select';
+export type { State as SliderState } from './hooks/use-slider';
+export type { State as SnackbarState } from './hooks/use-snackbar';
+export type { State as SpeedDialState } from './hooks/use-speed-dial';
 export type { State as SwipeableDrawerState } from './hooks/use-swipeable-drawer';
 export type { State as SwitchState } from './hooks/use-switch';
 export type { State as TablePaginationState } from './hooks/use-table-pagination';
@@ -9,8 +18,17 @@ export type { State as ToggleButtonGroupState } from './hooks/use-toggle-button-
 export type { State as TooltipState } from './hooks/use-tooltip';
 export type { State as TreeViewState } from './hooks/use-tree-view';
 
+export { default as useDateRangePicker } from './hooks/use-date-range-picker';
 export { default as useDateTimePicker } from './hooks/use-date-time-picker';
 export { default as usePagination } from './hooks/use-pagination';
+export { default as usePopover } from './hooks/use-popover';
+export { default as useRadio } from './hooks/use-radio';
+export { default as useRadioGroup } from './hooks/use-radio-group';
+export { default as useRating } from './hooks/use-rating';
+export { default as useSelect } from './hooks/use-select';
+export { default as useSlider } from './hooks/use-slider';
+export { default as useSnackbar } from './hooks/use-snackbar';
+export { default as useSpeedDial } from './hooks/use-speed-dial';
 export { default as useSwipeableDrawer } from './hooks/use-swipeable-drawer';
 export { default as useSwitch } from './hooks/use-switch';
 export { default as useTablePagination } from './hooks/use-table-pagination';

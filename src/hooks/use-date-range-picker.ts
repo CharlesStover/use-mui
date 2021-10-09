@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useState } from 'react';
+import DEFAULT_DATE_RANGE_PICKER_VALUE from '../constants/default-date-range-picker-value';
 
 interface Props {
   readonly defaultOpen?: boolean | undefined;
@@ -47,14 +48,13 @@ export interface State {
 }
 
 const DEFAULT_PROPS: Props = {};
-const DEFAULT_VALUE: [null, null] = [null, null];
 
 export default function useDateRangePicker(
   props: Props = DEFAULT_PROPS,
 ): State {
   const {
     defaultOpen = false,
-    defaultValue = DEFAULT_VALUE,
+    defaultValue = DEFAULT_DATE_RANGE_PICKER_VALUE,
     onChange,
     onClose,
     onOpen,
