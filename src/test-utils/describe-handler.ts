@@ -5,8 +5,8 @@ import validateHandler from './validate-handler';
 interface Options {
   readonly args: readonly unknown[];
   readonly callback: string;
-  readonly defaultGetter?: string;
-  readonly defaultValue?: unknown;
+  readonly defaultGetter: string;
+  readonly defaultValue: unknown;
   readonly getter: string;
   readonly handler: string;
   readonly value: unknown;

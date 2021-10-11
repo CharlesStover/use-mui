@@ -59,7 +59,15 @@ export default function describeHook<P extends unknown[], S>(
         typeof callback === 'string' &&
         typeof handler === 'string'
       ) {
-        describeHandler(useHook, { args, callback, getter, handler, value });
+        describeHandler(useHook, {
+          args,
+          callback,
+          defaultGetter,
+          defaultValue,
+          getter,
+          handler,
+          value,
+        });
       }
     }
 
