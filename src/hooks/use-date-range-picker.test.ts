@@ -1,45 +1,46 @@
 import { useDateRangePicker } from '..';
 import DEFAULT_DATE_RANGE_PICKER_VALUE from '../constants/default-date-range-picker-value';
-import describeGetter from '../test-utils/describe-getter';
 import describeHandler from '../test-utils/describe-handler';
-import describeSetter from '../test-utils/describe-setter';
+import describeHook from '../test-utils/describe-hook';
 
 const NOW_DATE: Date = new Date();
 const NOW_TIME: number = Date.now();
-
 const NOW_RANGE: [Date, number] = [NOW_DATE, NOW_TIME];
 
-describe('useDateRangePicker', (): void => {
-  describeHandler(useDateRangePicker, 'handleOpen', [], 'open', true, 'onOpen');
-  describeGetter(useDateRangePicker, 'open', false, 'defaultOpen', true);
-  describeSetter(useDateRangePicker, 'setOpen', 'open', true);
-  describeSetter(useDateRangePicker, 'setValue', 'value', NOW_RANGE);
-
-  describeHandler(
-    useDateRangePicker,
-    'handleChange',
-    [NOW_RANGE],
-    'value',
-    NOW_RANGE,
-    'onChange',
-  );
-
-  describeHandler(
-    useDateRangePicker,
-    'handleClose',
-    [],
-    'open',
-    false,
-    'onClose',
-    'defaultOpen',
-    true,
-  );
-
-  describeGetter(
-    useDateRangePicker,
-    'value',
-    DEFAULT_DATE_RANGE_PICKER_VALUE,
-    'defaultValue',
-    NOW_RANGE,
-  );
-});
+describeHook(
+  useDateRangePicker,
+  [
+    {
+      args: [],
+      callback: 'onOpen',
+      defaultGetter: 'defaultOpen',
+      defaultValue: false,
+      getter: 'open',
+      handler: 'handleOpen',
+      setter: 'setOpen',
+      value: true,
+    },
+    {
+      args: [NOW_RANGE],
+      callback: 'onChange',
+      defaultGetter: 'defaultValue',
+      defaultValue: DEFAULT_DATE_RANGE_PICKER_VALUE,
+      getter: 'value',
+      handler: 'handleChange',
+      setter: 'setValue',
+      value: NOW_RANGE,
+    },
+  ],
+  (): void => {
+    describeHandler(
+      useDateRangePicker,
+      'handleClose',
+      [],
+      'open',
+      false,
+      'onClose',
+      'defaultOpen',
+      true,
+    );
+  },
+);
