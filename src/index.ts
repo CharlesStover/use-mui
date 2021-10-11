@@ -1,5 +1,6 @@
 export type { State as DateRangePickerState } from './hooks/use-date-range-picker';
 export type { State as DateTimePickerState } from './hooks/use-date-time-picker';
+export type { State as NativeSelectState } from './hooks/use-native-select';
 export type { State as PaginationState } from './hooks/use-pagination';
 export type { State as PopoverState } from './hooks/use-popover';
 export type { State as RadioState } from './hooks/use-radio';
@@ -20,6 +21,7 @@ export type { State as TreeViewState } from './hooks/use-tree-view';
 
 export { default as useDateRangePicker } from './hooks/use-date-range-picker';
 export { default as useDateTimePicker } from './hooks/use-date-time-picker';
+export { default as useNativeSelect } from './hooks/use-native-select';
 export { default as usePagination } from './hooks/use-pagination';
 export { default as usePopover } from './hooks/use-popover';
 export { default as useRadio } from './hooks/use-radio';
