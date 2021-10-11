@@ -3,11 +3,15 @@ import type { Dispatch, SetStateAction } from 'react';
 import validateDispatch from './validate-dispatch';
 import validateRecord from './validate-record';
 
+interface Options {
+  readonly getter: string;
+  readonly setter: string;
+  readonly value: unknown;
+}
+
 export default function describeSetter(
   useHook: () => unknown,
-  setter: string,
-  getter: string,
-  value: unknown,
+  { getter, setter, value }: Options,
 ): void {
   describe(setter, (): void => {
     it(`should set \`${getter}\``, (): void => {

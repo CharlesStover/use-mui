@@ -1,17 +1,27 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import type { SyntheticEvent } from 'react';
 import { usePopover } from '..';
-import describeGetter from '../test-utils/describe-getter';
-import describeSetter from '../test-utils/describe-setter';
+import describeGetterSetter from '../test-utils/describe-getter-setter';
 import TestChangeEvent from '../test-utils/test-change-event';
 
 const ONCE = 1;
 
 describe('usePopover', (): void => {
-  describeGetter(usePopover, 'open', false, 'defaultOpen', true);
-  describeGetter(usePopover, 'reason', undefined, 'defaultReason', 'test');
-  describeSetter(usePopover, 'setOpen', 'open', true);
-  describeSetter(usePopover, 'setReason', 'reason', 'test');
+  describeGetterSetter(usePopover, {
+    defaultGetter: 'defaultOpen',
+    defaultValue: false,
+    getter: 'open',
+    setter: 'setOpen',
+    value: true,
+  });
+
+  describeGetterSetter(usePopover, {
+    defaultGetter: 'defaultReason',
+    defaultValue: undefined,
+    getter: 'reason',
+    setter: 'setReason',
+    value: 'test reason',
+  });
 
   describe('handleClose', (): void => {
     it('should set `open` to false', (): void => {

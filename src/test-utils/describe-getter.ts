@@ -1,12 +1,16 @@
 import { renderHook } from '@testing-library/react-hooks';
 import validateRecord from './validate-record';
 
+interface Options {
+  readonly defaultGetter: string;
+  readonly defaultValue: unknown;
+  readonly getter: string;
+  readonly value: unknown;
+}
+
 export default function describeGetter(
   useHook: () => unknown,
-  getter: string,
-  defaultValue: unknown,
-  defaultGetter: string,
-  value: unknown,
+  { defaultGetter, defaultValue, getter, value }: Options,
 ): void {
   describe(getter, (): void => {
     it(`should default to ${JSON.stringify(defaultValue)}`, (): void => {

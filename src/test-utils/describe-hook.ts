@@ -38,9 +38,9 @@ export default function describeHook<P extends unknown[], S>(
       setter,
       value,
     } of states) {
-      describeGetter(useHook, getter, defaultValue, defaultGetter, value);
+      describeGetter(useHook, { defaultValue, defaultGetter, getter, value });
       if (typeof setter === 'string') {
-        describeSetter(useHook, setter, getter, value);
+        describeSetter(useHook, { getter, setter, value });
       }
       if (typeof handler === 'string') {
         describeHandler(useHook, handler, args, getter, value, callback);
