@@ -1,5 +1,7 @@
 import type { Dispatch, SetStateAction, SyntheticEvent } from 'react';
 import { useCallback, useState } from 'react';
+import DEFAULT_TREE_VIEW_EXPANDED from '../constants/default-tree-view-expanded';
+import DEFAULT_TREE_VIEW_SELECTED from '../constants/default-tree-view-selected';
 
 interface Props {
   readonly defaultExpanded?: readonly string[] | undefined;
@@ -27,14 +29,12 @@ export interface State {
   ) => void;
 }
 
-const DEFAULT_EXPANDED: readonly string[] = Object.freeze([]);
 const DEFAULT_PROPS: Props = {};
-const DEFAULT_SELECTED: readonly string[] = Object.freeze([]);
 
 export default function useTreeView(props: Props = DEFAULT_PROPS): State {
   const {
-    defaultExpanded = DEFAULT_EXPANDED,
-    defaultSelected = DEFAULT_SELECTED,
+    defaultExpanded = DEFAULT_TREE_VIEW_EXPANDED,
+    defaultSelected = DEFAULT_TREE_VIEW_SELECTED,
     onNodeSelect,
     onNodeToggle,
   } = props;

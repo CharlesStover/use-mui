@@ -17,6 +17,13 @@ describeHook(
       setter: 'setActiveThumb',
       value: TEST_ACTIVE_THUMB,
     },
+    {
+      defaultGetter: 'defaultValue',
+      defaultValue: 0,
+      getter: 'value',
+      setter: 'setValue',
+      value: TEST_VALUE,
+    },
   ],
   (): void => {
     describe('handleChange', (): void => {
