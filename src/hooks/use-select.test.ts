@@ -1,6 +1,5 @@
 import type { SyntheticEvent } from 'react';
 import { useSelect } from '..';
-import describeGetterSetter from '../test-utils/describe-getter-setter';
 import describeHandler from '../test-utils/describe-handler';
 import describeHook from '../test-utils/describe-hook';
 import mapValueToTestChangeEvent from '../test-utils/map-value-to-test-change-event';
@@ -13,6 +12,13 @@ describeHook(
   useSelect,
   [
     {
+      defaultGetter: 'defaultOpen',
+      defaultValue: false,
+      getter: 'open',
+      setter: 'setOpen',
+      value: true,
+    },
+    {
       args: [TEST_CHANGE_EVENT, undefined],
       callback: 'onChange',
       defaultGetter: 'defaultValue',
@@ -24,32 +30,24 @@ describeHook(
     },
   ],
   (): void => {
-    describeGetterSetter(useSelect, {
+    describeHandler(useSelect, {
+      args: [new TestChangeEvent()],
+      callback: 'onClose',
+      defaultGetter: 'defaultOpen',
+      defaultValue: true,
+      getter: 'open',
+      handler: 'handleClose',
+      value: false,
+    });
+
+    describeHandler(useSelect, {
+      args: [new TestChangeEvent()],
+      callback: 'onOpen',
       defaultGetter: 'defaultOpen',
       defaultValue: false,
       getter: 'open',
-      setter: 'setOpen',
+      handler: 'handleOpen',
       value: true,
     });
-
-    describeHandler(
-      useSelect,
-      'handleClose',
-      [new TestChangeEvent()],
-      'open',
-      false,
-      'onClose',
-      'defaultOpen',
-      true,
-    );
-
-    describeHandler(
-      useSelect,
-      'handleOpen',
-      [new TestChangeEvent()],
-      'open',
-      true,
-      'onOpen',
-    );
   },
 );

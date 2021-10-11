@@ -9,11 +9,21 @@ interface GetterOptions {
   readonly value: unknown;
 }
 
-interface HandlerOptions<S> {
+interface HandlerOptions {
   readonly args: readonly unknown[];
   readonly callback: string;
   readonly handler: string;
-  readonly sideEffect?: (state: S) => void;
+}
+
+interface NoHandlerOptions {
+  readonly args?: undefined;
+  readonly callback?: undefined;
+  readonly handler?: undefined;
+  readonly sideEffect?: undefined;
+}
+
+interface NoSetterOptions {
+  readonly setter?: undefined;
 }
 
 interface SetterOptions {
@@ -23,8 +33,8 @@ interface SetterOptions {
 export default function describeHook<P extends unknown[], S>(
   useHook: (...props: P) => S,
   states: readonly (GetterOptions &
-    (HandlerOptions<S> | never) &
-    (SetterOptions | never))[],
+    (HandlerOptions | NoHandlerOptions) &
+    (NoSetterOptions | SetterOptions))[],
   tests?: () => void,
 ): void {
   describe(useHook.name, (): void => {
@@ -39,13 +49,20 @@ export default function describeHook<P extends unknown[], S>(
       value,
     } of states) {
       describeGetter(useHook, { defaultValue, defaultGetter, getter, value });
+
       if (typeof setter === 'string') {
         describeSetter(useHook, { getter, setter, value });
       }
-      if (typeof handler === 'string') {
-        describeHandler(useHook, handler, args, getter, value, callback);
+
+      if (
+        Array.isArray(args) &&
+        typeof callback === 'string' &&
+        typeof handler === 'string'
+      ) {
+        describeHandler(useHook, { args, callback, getter, handler, value });
       }
     }
+
     if (typeof tests === 'function') {
       tests();
     }

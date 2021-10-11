@@ -32,15 +32,14 @@ describeHook(
     },
   ],
   (): void => {
-    describeHandler(
-      useDateRangePicker,
-      'handleClose',
-      [],
-      'open',
-      false,
-      'onClose',
-      'defaultOpen',
-      true,
-    );
+    describeHandler(useDateRangePicker, {
+      args: [],
+      callback: 'onClose',
+      defaultGetter: 'defaultOpen',
+      defaultValue: true,
+      getter: 'open',
+      handler: 'handleClose',
+      value: false,
+    });
   },
 );

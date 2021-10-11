@@ -2,35 +2,29 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import validateRecord from './validate-record';
 import validateHandler from './validate-handler';
 
+interface Options {
+  readonly args: readonly unknown[];
+  readonly callback: string;
+  readonly defaultGetter?: string;
+  readonly defaultValue?: unknown;
+  readonly getter: string;
+  readonly handler: string;
+  readonly value: unknown;
+}
+
 const ONCE = 1;
 
 export default function describeHandler(
   useHook: () => unknown,
-  handler: string,
-  args: readonly unknown[],
-  getter: string,
-  value: unknown,
-  callback: string,
-): void;
-export default function describeHandler(
-  useHook: () => unknown,
-  handler: string,
-  args: readonly unknown[],
-  getter: string,
-  value: unknown,
-  callback: string,
-  defaultGetter: string,
-  defaultValue: unknown,
-): void;
-export default function describeHandler(
-  useHook: () => unknown,
-  handler: string,
-  args: readonly unknown[],
-  getter: string,
-  value: unknown,
-  callback: string,
-  defaultGetter?: string,
-  defaultValue?: unknown,
+  {
+    args,
+    callback,
+    defaultGetter,
+    defaultValue,
+    getter,
+    handler,
+    value,
+  }: Options,
 ): void {
   describe(handler, (): void => {
     it(`should set \`${getter}\``, (): void => {
