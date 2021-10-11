@@ -28,8 +28,12 @@ export interface State {
 const DEFAULT_PROPS: Props = {};
 const DEFAULT_VALUE = 0;
 
-export default function useSlider(props: Props = DEFAULT_PROPS): State {
-  const { defaultActiveThumb, defaultValue = DEFAULT_VALUE, onChange } = props;
+export default function useSlider(props?: Props): State {
+  const {
+    defaultActiveThumb,
+    defaultValue = DEFAULT_VALUE,
+    onChange,
+  } = props ?? DEFAULT_PROPS;
 
   const [activeThumb, setActiveThumb] = useState(defaultActiveThumb);
   const [value, setValue] = useState(defaultValue);
