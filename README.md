@@ -498,6 +498,9 @@ function MySelect() {
 }
 ```
 
+Additionally, the `useSelect` hook returns a `child` property that can be used
+to render the selected child.
+
 ### `Slider`
 
 ```javascript
