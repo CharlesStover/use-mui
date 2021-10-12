@@ -1,9 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
 import { useModal } from '..';
+import describeHook from '../test-utils/describe-hook';
 
-describe('useModal', (): void => {
-  it('should not be implemented', (): void => {
-    const { result } = renderHook(useModal);
-    expect(result.current).toBeUndefined();
-  });
-});
+describeHook(useModal, []);

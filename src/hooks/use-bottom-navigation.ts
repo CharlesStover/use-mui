@@ -4,7 +4,7 @@ import DEFAULT_PROPS from '../constants/default-props';
 
 interface Props<T> {
   readonly defaultValue?: T | undefined;
-  readonly onChange?: (event: SyntheticEvent, value: T) => void;
+  readonly onChange?: ((event: SyntheticEvent, value: T) => void) | undefined;
 }
 
 export interface State<T> {

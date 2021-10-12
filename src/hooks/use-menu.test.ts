@@ -1,9 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
 import { useMenu } from '..';
+import describeHook from '../test-utils/describe-hook';
 
-describe('useMenu', (): void => {
-  it('should not be implemented', (): void => {
-    const { result } = renderHook(useMenu);
-    expect(result.current).toBeUndefined();
-  });
-});
+describeHook(useMenu, []);

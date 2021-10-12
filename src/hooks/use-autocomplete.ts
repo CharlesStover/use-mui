@@ -16,17 +16,17 @@ export interface Props<T, M extends boolean | undefined> {
   readonly defaultValue?:
     | (M extends true ? readonly T[] : T | null)
     | undefined;
-  readonly onChange?: (
-    event: SyntheticEvent,
-    value: M extends true ? readonly T[] : T,
-    reason: string,
-    details?: string,
-  ) => void;
-  readonly onInputChange?: (
-    event: SyntheticEvent,
-    value: string,
-    reason: string,
-  ) => void;
+  readonly onChange?:
+    | ((
+        event: SyntheticEvent,
+        value: M extends true ? readonly T[] : T,
+        reason: string,
+        details?: string,
+      ) => void)
+    | undefined;
+  readonly onInputChange?:
+    | ((event: SyntheticEvent, value: string, reason: string) => void)
+    | undefined;
 }
 
 export interface State<T, M extends boolean | undefined> {

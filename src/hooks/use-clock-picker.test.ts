@@ -1,9 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
 import { useClockPicker } from '..';
+import describeHook from '../test-utils/describe-hook';
 
-describe('useClockPicker', (): void => {
-  it('should not be implemented', (): void => {
-    const { result } = renderHook(useClockPicker);
-    expect(result.current).toBeUndefined();
-  });
-});
+describeHook(useClockPicker, []);

@@ -1,9 +1,16 @@
-import { renderHook } from '@testing-library/react-hooks';
 import { useFormControlLabel } from '..';
+import describeHook from '../test-utils/describe-hook';
+import mapCheckedToTestChangeEvent from '../test-utils/map-checked-to-test-change-event';
 
-describe('useFormControlLabel', (): void => {
-  it('should not be implemented', (): void => {
-    const { result } = renderHook(useFormControlLabel);
-    expect(result.current).toBeUndefined();
-  });
-});
+describeHook(useFormControlLabel, [
+  {
+    args: [mapCheckedToTestChangeEvent(true)],
+    callback: 'onChange',
+    defaultGetter: 'defaultChecked',
+    defaultValue: false,
+    getter: 'checked',
+    handler: 'handleChange',
+    setter: 'setChecked',
+    value: true,
+  },
+]);

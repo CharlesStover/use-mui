@@ -4,7 +4,9 @@ import DEFAULT_PROPS from '../constants/default-props';
 
 interface Props {
   readonly defaultExpanded?: boolean | undefined;
-  readonly onChange?: (event: SyntheticEvent, expanded: boolean) => void;
+  readonly onChange?:
+    | ((event: SyntheticEvent, expanded: boolean) => void)
+    | undefined;
 }
 
 export interface State {
