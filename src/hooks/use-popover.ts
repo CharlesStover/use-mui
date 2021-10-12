@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction, SyntheticEvent } from 'react';
 import { useCallback, useState } from 'react';
+import DEFAULT_PROPS from '../constants/default-props';
 
 interface Props {
   readonly defaultOpen?: boolean | undefined;
@@ -17,11 +18,11 @@ export interface State {
   readonly setReason: Dispatch<SetStateAction<string | undefined>>;
 }
 
-const DEFAULT_PROPS: Props = {};
-
-export default function usePopover(props: Props = DEFAULT_PROPS): State {
-  const { defaultOpen = false, defaultReason, onClose } = props;
-
+export default function usePopover({
+  defaultOpen = false,
+  defaultReason,
+  onClose,
+}: Props = DEFAULT_PROPS): State {
   const [open, setOpen] = useState(defaultOpen);
   const [reason, setReason] = useState(defaultReason);
 

@@ -1,5 +1,6 @@
 import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { useCallback, useState } from 'react';
+import DEFAULT_PROPS from '../constants/default-props';
 
 interface Props {
   readonly defaultValue?: string | undefined;
@@ -17,12 +18,10 @@ export interface State {
   ) => void;
 }
 
-const DEFAULT_PROPS: Props = {};
-const DEFAULT_VALUE = '';
-
-export default function useRadioGroup(props: Props = DEFAULT_PROPS): State {
-  const { defaultValue = DEFAULT_VALUE, onChange } = props;
-
+export default function useRadioGroup({
+  defaultValue = '',
+  onChange,
+}: Props = DEFAULT_PROPS): State {
   const [value, setValue] = useState(defaultValue);
 
   return {

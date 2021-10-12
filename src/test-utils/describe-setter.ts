@@ -5,17 +5,20 @@ import validateRecord from './validate-record';
 
 interface Options {
   readonly getter: string;
+  readonly props?: Record<string, unknown> | undefined;
   readonly setter: string;
   readonly value: unknown;
 }
 
 export default function describeSetter(
   useHook: () => unknown,
-  { getter, setter, value }: Options,
+  { getter, props, setter, value }: Options,
 ): void {
   describe(setter, (): void => {
     it(`should set \`${getter}\``, (): void => {
-      const { result } = renderHook(useHook);
+      const { result } = renderHook(useHook, {
+        initialProps: props,
+      });
 
       const state: Record<number | string | symbol, unknown> = validateRecord(
         result.current,

@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction, SyntheticEvent } from 'react';
 import { useCallback, useState } from 'react';
+import DEFAULT_PROPS from '../constants/default-props';
 
 interface Props {
   readonly defaultOpen?: boolean | undefined;
@@ -14,11 +15,11 @@ export interface State {
   readonly setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const DEFAULT_PROPS: Props = {};
-
-export default function useSpeedDial(props: Props = DEFAULT_PROPS): State {
-  const { defaultOpen = false, onClose, onOpen } = props;
-
+export default function useSpeedDial({
+  defaultOpen = false,
+  onClose,
+  onOpen,
+}: Props = DEFAULT_PROPS): State {
   const [open, setOpen] = useState(defaultOpen);
 
   return {

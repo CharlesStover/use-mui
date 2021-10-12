@@ -58,6 +58,151 @@ function MyTextField() {
 }
 ```
 
+### `Accordion`
+
+```javascript
+import Accordion from '@mui/material/Accordion';
+import { useAccordion } from 'use-mui';
+
+function MyAccordion() {
+  const { expanded, handleChange } = useAccordion();
+  return <Accordion expanded={expanded} onChange={handleChange} />;
+}
+```
+
+### `Autocomplete`
+
+```javascript
+import Autocomplete from '@mui/material/Autocomplete';
+import { useAutocomplete } from 'use-mui';
+
+function MyAutocomplete() {
+  const {
+    handleChange,
+    handleClose,
+    handleInputChange,
+    handleOpen,
+    inputValue,
+    open,
+    value,
+  } = useAutocomplete();
+  return (
+    <Autocomplete
+      inputValue={inputValue}
+      onChange={handleChange}
+      onClose={handleClose}
+      onInputChange={handleInputChange}
+      onOpen={handleOpen}
+      open={open}
+      value={value}
+    />
+  );
+}
+```
+
+Additionally, the `useAutocomplete` hook returns a `changeReason` property that
+indicates why the value changed, a `changeDetails` property that offers more
+details about the change, an `inputReason` property that indicates why the
+input value changed, and a `closeReason` property that indicates why the menu
+closed.
+
+### `BottomNavigation`
+
+```javascript
+import ButtomNavigation from '@mui/material/BottomNavigation';
+import { useBottomNavigation } from 'use-mui';
+
+function MyBottomNavigation() {
+  const { handleChange, value } = useBottomNavigation();
+  return <BottomNavigation onChange={handleChange} value={value} />;
+}
+```
+
+### `CalendarPicker`
+
+```javascript
+import CalendarPicker from '@mui/lab/CalendarPicker';
+import { useCalendarPicker } from 'use-mui';
+
+function MyCalendarPicker() {
+  const { handleChange, handleViewChange, value, view } = useCalendarPicker();
+  return (
+    <CalendarPicker
+      onChange={handleChange}
+      onViewChange={handleViewChange}
+      value={value}
+      view={view}
+    />
+  );
+}
+```
+
+### `Checkbox`
+
+```javascript
+import Checkbox from '@mui/material/Checkbox';
+import { useCheckbox } from 'use-mui';
+
+function MyCheckbox() {
+  const { checked, handleChange } = useCheckbox();
+  return <Checkbox checked={checked} onChange={handleChange} />;
+}
+```
+
+### `ClockPicker`
+
+```javascript
+import ClockPicker from '@mui/lab/ClockPicker';
+import { useClockPicker } from 'use-mui';
+
+function MyClockPicker() {
+  const { date, handleChange } = useClockPicker();
+  return <ClockPicker date={date} onChange={handleChange} />;
+}
+```
+
+### `DataGridPro`
+
+```javascript
+import { DataGridPro } from '@mui/x-data-grid-pro';
+import { useDataGridPro } from 'use-mui';
+
+// For more information, see https://mui.com/api/data-grid/data-grid-pro/
+function MyDataGridPro() {
+  const {
+    error,
+    handleError,
+    handlePageChange,
+    handlePageSizeChange,
+    handleSelectionModelChange,
+    handleSortModelChange,
+    page,
+    pageSize,
+    selectionModel,
+    sortModel,
+  } = useDataGridPro();
+  return (
+    <DataGridPro
+      error={error}
+      onError={handleError}
+      onPageChange={handlePageChange}
+      onPageSizeChange={handlePageSizechange}
+      onSelectionModelChange={handleSelectionModelChange}
+      onSortModelChange={handleSortModelChange}
+      page={page}
+      pageSize={pageSize}
+      selectionModal={selectionModel}
+      sortModel={sortModel}
+    />
+  );
+}
+```
+
+### `DatePicker`
+
+For the `DatePicker` component, use the [`useDateTimePicker`](#datetimepicker)
+hook.
+
 ### `DateRangePicker`
 
 ```javascript
@@ -82,7 +227,7 @@ function MyDateRangePicker() {
 ### `DateTimePicker`
 
 ```javascript
-import DateTimePicker from '@mui/material/DateTimePicker';
+import DateTimePicker from '@mui/lab/DateTimePicker';
 import { useDateTimePicker } from 'use-mui';
 
 function MyDateTimePicker() {
@@ -100,9 +245,171 @@ function MyDateTimePicker() {
 }
 ```
 
+### `DesktopDatePicker`
+
+For the `DesktopDatePicker` component, use the
+[`useDateTimePicker`](#datetimepicker) hook.
+
+### `DesktopDateRangePicker`
+
+For the `DesktopDateRangePicker` component, use the
+[`useDateTimePicker`](#datetimepicker) hook.
+
+### `DesktopDateTimePicker`
+
+For the `DesktopDateTimePicker` component, use the
+[`useDateTimePicker`](#datetimepicker) hook.
+
+### `DesktopTimePicker`
+
+For the `DesktopTimePicker` component, use the
+[`useDateTimePicker`](#datetimepicker) hook.
+
+### `Dialog`
+
+```javascript
+import Dialog from '@mui/material/Dialog';
+import { useDialog } from 'use-mui';
+
+function MyDialog() {
+  const { handleClose, open } = useDialog();
+  return (
+    <Dialog onClose={handleClose} open={open}>
+      Hello world!
+    </Dialog>
+  );
+}
+```
+
+Additionally, the `useDialog` hook returns a `reason` property that can be used
+to determine the reason for closing the dialog.
+
+### `Drawer`
+
+```javascript
+import Drawer from '@mui/material/Drawer';
+import { useDrawer } from 'use-mui';
+
+function MyDrawer() {
+  const { handleClose, open } = useDrawer();
+  return <Drawer onClose={handleClose} open={open} />;
+}
+```
+
+### `FilledInput`
+
+For the `FilledInput` component, use the [`useInput`](#input) hook.
+
+### `FormControlLabel`
+
+```javascript
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { useFormControlLabel } from 'use-mui';
+
+function MyFormControlLabel() {
+  const { checked, handleChange } = useFormControlLabel();
+  return (
+    <FormControlLabel
+      checked={checked}
+      control={<Checkbox />}
+      label="My checkbox"
+      onChange={handleChange}
+    />
+  );
+}
+```
+
 ### `Input`
 
-The `Input` component is not yet implemented. Contributions are welcome!
+```javascript
+import Input from '@mui/material/Input';
+import { useInput } from 'use-mui';
+
+function MyInput() {
+  const { handleChange, value } = useInput();
+  return <Input onChange={handleChange} value={value} />;
+}
+```
+
+### `InputBase`
+
+For the `InputBase` component, use the [`useInput`](#input) hook.
+
+### `Menu`
+
+```javascript
+import Menu from '@mui/material/Menu';
+import { useMenu } from 'use-mui';
+
+function MyMenu() {
+  const { handleClose, open } = useMenu();
+  return <Menu onClose={handleClose} open={open} />;
+}
+```
+
+Additionally, the `useMenu` hook returns a `reason` property that can be used to
+determine the reason the menu was closed.
+
+### `MobileDatePicker`
+
+For the `MobileDatePicker` component, use the
+[`useDateTimePicker`](#datetimepicker) hook.
+
+### `MobileDateRangePicker`
+
+For the `MobileDateRangePicker` component, use the
+[`useDateTimePicker`](#datetimepicker) hook.
+
+### `MobileDateTimePicker`
+
+For the `MobileDateTimePicker` component, use the
+[`useDateTimePicker`](#datetimepicker) hook.
+
+### `MobileTimePicker`
+
+For the `MobileTimePicker` component, use the
+[`useDateTimePicker`](#datetimepicker) hook.
+
+### `Modal`
+
+```javascript
+import Modal from '@mui/material/Modal';
+import { useModal } from 'use-mui';
+
+function MyModal() {
+  const { handleClose, open } = useModal();
+  return <Modal onClose={handleClose} open={open} />;
+}
+```
+
+### `ModalUnstyled`
+
+For the `ModalUnstyled` component, use the [`useModal`](#modal) hook.
+
+### `MonthPicker`
+
+```javascript
+import MonthPicker from '@mui/lab/MonthPicker';
+import { useMonthPicker } from 'use-mui';
+
+function MyMonthPicker() {
+  const { date, handleChange } = useMonthPicker();
+  return <MonthPicker date={date} onChange={handleChange} />;
+}
+```
+
+### `NativeSelect`
+
+```javascript
+import NativeSelect from '@mui/material/NativeSelect';
+import { useNativeSelect } from 'use-mui';
+
+function MyNativeSelect() {
+  const { handleChange, value } = useNativeSelect();
+  return <NativeSelect onChange={handleChange} value={value} />;
+}
+```
 
 ### `OutlinedInput`
 
@@ -127,10 +434,13 @@ import Popover from '@mui/material/Popover';
 import { usePopover } from 'use-mui';
 
 function MyPopover() {
-  const { handleClose, open, reason } = usePopover();
-  return <Popover onClose={handleClose} open={open} reason={reason} />;
+  const { handleClose, open } = usePopover();
+  return <Popover onClose={handleClose} open={open} />;
 }
 ```
+
+Additionally, the `usePopover` hook returns a `reason` property that can be used
+to determine the reason the popover was closed.
 
 ### `Radio`
 
@@ -213,10 +523,13 @@ import Snackbar from '@mui/material/Snackbar';
 import { useSnackbar } from 'use-mui';
 
 function MySnackbar() {
-  const { handleClose, open, reason } = useSnackbar();
-  return <Snackbar onClose={handleClose} open={open} reason={reason} />;
+  const { handleClose, open } = useSnackbar();
+  return <Snackbar onClose={handleClose} open={open} />;
 }
 ```
+
+Additionally, the `useSnackbar` hook returns a `reason` property that can be
+used to determine the reason the snackbar was closed.
 
 ### `SpeedDial`
 
@@ -352,7 +665,7 @@ function MyTooltip() {
 ### `TreeView`
 
 ```javascript
-import TreeView from '@mui/material/TreeView';
+import TreeView from '@mui/lab/TreeView';
 import { useTreeView } from 'use-mui';
 
 function MyTreeView() {

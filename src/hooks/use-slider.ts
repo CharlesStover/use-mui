@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useState } from 'react';
+import DEFAULT_PROPS from '../constants/default-props';
 
 interface Props {
   readonly defaultActiveThumb?: number | undefined;
@@ -25,16 +26,13 @@ export interface State {
   ) => void;
 }
 
-const DEFAULT_PROPS: Props = {};
 const DEFAULT_VALUE = 0;
 
-export default function useSlider(props?: Props): State {
-  const {
-    defaultActiveThumb,
-    defaultValue = DEFAULT_VALUE,
-    onChange,
-  } = props ?? DEFAULT_PROPS;
-
+export default function useSlider({
+  defaultActiveThumb,
+  defaultValue = DEFAULT_VALUE,
+  onChange,
+}: Props = DEFAULT_PROPS): State {
   const [activeThumb, setActiveThumb] = useState(defaultActiveThumb);
   const [value, setValue] = useState(defaultValue);
 

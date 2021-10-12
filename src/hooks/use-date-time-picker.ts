@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useState } from 'react';
+import DEFAULT_PROPS from '../constants/default-props';
 
 interface Props {
   readonly defaultOpen?: boolean | undefined;
@@ -25,17 +26,13 @@ export interface State {
   >;
 }
 
-const DEFAULT_PROPS: Props = {};
-
-export default function useDateTimePicker(props: Props = DEFAULT_PROPS): State {
-  const {
-    defaultOpen = false,
-    defaultValue,
-    onChange,
-    onClose,
-    onOpen,
-  } = props;
-
+export default function useDateTimePicker({
+  defaultOpen = false,
+  defaultValue,
+  onChange,
+  onClose,
+  onOpen,
+}: Props = DEFAULT_PROPS): State {
   const [open, setOpen] = useState(defaultOpen);
   const [value, setValue] = useState(defaultValue);
 

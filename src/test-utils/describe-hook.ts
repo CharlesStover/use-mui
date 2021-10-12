@@ -2,58 +2,89 @@ import describeGetter from './describe-getter';
 import describeHandler from './describe-handler';
 import describeSetter from './describe-setter';
 
-interface GetterOptions {
+interface HandlerOptions {
+  readonly args: readonly unknown[];
+  readonly callback: string;
+  readonly handler: string;
+  readonly props?: Record<string, unknown>;
+  readonly states: Record<string, unknown>;
+}
+
+interface StateOptions {
   readonly defaultGetter: string;
   readonly defaultValue: unknown;
   readonly getter: string;
+  readonly props?: Record<string, unknown>;
+  readonly setter: string;
   readonly value: unknown;
 }
 
-interface HandlerOptions {
+interface StateHandlerOptions {
   readonly args: readonly unknown[];
   readonly callback: string;
   readonly handler: string;
 }
 
-interface NoHandlerOptions {
+interface NoStateHandlerOptions {
   readonly args?: undefined;
   readonly callback?: undefined;
   readonly handler?: undefined;
-  readonly sideEffect?: undefined;
 }
 
-interface NoSetterOptions {
-  readonly setter?: undefined;
-}
-
-interface SetterOptions {
-  readonly setter: string;
-}
+const filterOptionsByHandlerOptions = (
+  options: unknown,
+): options is HandlerOptions =>
+  Object.prototype.hasOwnProperty.call(options, 'states');
 
 export default function describeHook<P extends unknown[], S>(
   useHook: (...props: P) => S,
-  states: readonly (GetterOptions &
-    (HandlerOptions | NoHandlerOptions) &
-    (NoSetterOptions | SetterOptions))[],
-  tests?: () => void,
+  tests: readonly (
+    | HandlerOptions
+    | (StateOptions & (NoStateHandlerOptions | StateHandlerOptions))
+  )[],
 ): void {
   describe(useHook.name, (): void => {
-    for (const {
-      args,
-      callback,
-      defaultGetter,
-      defaultValue,
-      getter,
-      handler,
-      setter,
-      value,
-    } of states) {
-      describeGetter(useHook, { defaultValue, defaultGetter, getter, value });
+    for (const options of tests) {
+      // Test suite for an event handler that manges multiple states.
+      if (filterOptionsByHandlerOptions(options)) {
+        const { args, callback, handler, props, states } = options;
 
-      if (typeof setter === 'string') {
-        describeSetter(useHook, { getter, setter, value });
+        describeHandler(useHook, {
+          args,
+          callback,
+          handler,
+          props,
+          states,
+        });
+
+        continue;
       }
 
+      // Test suite for a state getter and setter.
+      const {
+        args,
+        callback,
+        defaultGetter,
+        defaultValue,
+        getter,
+        handler,
+        props,
+        setter,
+        value,
+      } = options;
+
+      describeGetter(useHook, {
+        defaultGetter,
+        defaultValue,
+        getter,
+        props,
+        value,
+      });
+
+      describeSetter(useHook, { getter, setter, props, value });
+
+      // Test suite for an event handler that manages a single getter and
+      //   setter.
       if (
         Array.isArray(args) &&
         typeof callback === 'string' &&
@@ -62,17 +93,12 @@ export default function describeHook<P extends unknown[], S>(
         describeHandler(useHook, {
           args,
           callback,
-          defaultGetter,
-          defaultValue,
-          getter,
           handler,
-          value,
+          states: {
+            [getter]: value,
+          },
         });
       }
-    }
-
-    if (typeof tests === 'function') {
-      tests();
     }
   });
 }

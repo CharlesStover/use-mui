@@ -1,5 +1,6 @@
 import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { useCallback, useState } from 'react';
+import DEFAULT_PROPS from '../constants/default-props';
 
 interface Props {
   readonly defaultChecked?: boolean | undefined;
@@ -14,11 +15,10 @@ export interface State {
   readonly setChecked: Dispatch<SetStateAction<boolean>>;
 }
 
-const DEFAULT_PROPS: Props = {};
-
-export default function useRadio(props: Props = DEFAULT_PROPS): State {
-  const { defaultChecked = false, onChange } = props;
-
+export default function useRadio({
+  defaultChecked = false,
+  onChange,
+}: Props = DEFAULT_PROPS): State {
   const [checked, setChecked] = useState(defaultChecked);
 
   return {
