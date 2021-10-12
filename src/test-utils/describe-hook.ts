@@ -6,6 +6,7 @@ interface GetterOptions {
   readonly defaultGetter: string;
   readonly defaultValue: unknown;
   readonly getter: string;
+  readonly props?: Record<string, unknown>;
   readonly value: unknown;
 }
 
@@ -45,13 +46,20 @@ export default function describeHook<P extends unknown[], S>(
       defaultValue,
       getter,
       handler,
+      props,
       setter,
       value,
     } of states) {
-      describeGetter(useHook, { defaultValue, defaultGetter, getter, value });
+      describeGetter(useHook, {
+        defaultValue,
+        defaultGetter,
+        getter,
+        props,
+        value,
+      });
 
       if (typeof setter === 'string') {
-        describeSetter(useHook, { getter, setter, value });
+        describeSetter(useHook, { getter, setter, props, value });
       }
 
       if (
@@ -66,6 +74,7 @@ export default function describeHook<P extends unknown[], S>(
           defaultValue,
           getter,
           handler,
+          props,
           value,
         });
       }

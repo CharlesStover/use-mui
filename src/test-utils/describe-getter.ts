@@ -5,16 +5,19 @@ interface Options {
   readonly defaultGetter: string;
   readonly defaultValue: unknown;
   readonly getter: string;
+  readonly props?: Record<string, unknown> | undefined;
   readonly value: unknown;
 }
 
 export default function describeGetter(
   useHook: () => unknown,
-  { defaultGetter, defaultValue, getter, value }: Options,
+  { defaultGetter, defaultValue, getter, props, value }: Options,
 ): void {
   describe(getter, (): void => {
     it(`should default to ${JSON.stringify(defaultValue)}`, (): void => {
-      const { result } = renderHook(useHook);
+      const { result } = renderHook(useHook, {
+        initialProps: props,
+      });
 
       const state: Record<number | string | symbol, unknown> = validateRecord(
         result.current,
@@ -26,6 +29,7 @@ export default function describeGetter(
     it(`should default to \`${defaultGetter}\``, (): void => {
       const { result } = renderHook(useHook, {
         initialProps: {
+          ...props,
           [defaultGetter]: value,
         },
       });

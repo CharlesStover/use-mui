@@ -9,6 +9,7 @@ interface Options {
   readonly defaultValue: unknown;
   readonly getter: string;
   readonly handler: string;
+  readonly props?: Record<string, unknown> | undefined;
   readonly value: unknown;
 }
 
@@ -23,12 +24,13 @@ export default function describeHandler(
     defaultValue,
     getter,
     handler,
+    props,
     value,
   }: Options,
 ): void {
   describe(handler, (): void => {
     it(`should set \`${getter}\``, (): void => {
-      const initialProps: Record<string, unknown> = {};
+      const initialProps: Record<string, unknown> = { ...props };
       if (typeof defaultGetter === 'string') {
         initialProps[defaultGetter] = defaultValue;
       }
@@ -57,6 +59,7 @@ export default function describeHandler(
 
       const { result } = renderHook(useHook, {
         initialProps: {
+          ...props,
           [callback]: TEST_CALLBACK,
         },
       });
