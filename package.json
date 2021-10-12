@@ -1,6 +1,6 @@
 {
   "name": "use-mui",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Charles Stover <use-mui@charlesstover.com>",
   "description": "React hooks for Material UI",
   "homepage": "https://www.npmjs.com/package/use-mui",

@@ -4,13 +4,12 @@ import DEFAULT_AUTOCOMPLETE_MULTIPLE_VALUE from '../constants/default-autocomple
 import DEFAULT_PROPS from '../constants/default-props';
 
 export interface Props<T, M extends boolean | undefined> {
+  readonly defaultChangeDetails?: string | undefined;
   readonly defaultChangeReason?: string | undefined;
   readonly defaultCloseReason?: string | undefined;
-  readonly defaultDetails?: string | undefined;
   readonly defaultInputReason?: string | undefined;
   readonly defaultInputValue?: string | undefined;
   readonly defaultOpen?: boolean | undefined;
-  readonly defaultReason?: string | undefined;
   readonly multiple?: M;
   readonly onClose?: (event: SyntheticEvent, reason: string) => void;
   readonly onOpen?: (event: SyntheticEvent) => void;
@@ -31,21 +30,19 @@ export interface Props<T, M extends boolean | undefined> {
 }
 
 export interface State<T, M extends boolean | undefined> {
+  readonly changeDetails: string | undefined;
   readonly changeReason: string | undefined;
   readonly closeReason: string | undefined;
-  readonly details: string | undefined;
   readonly handleClose: (event: SyntheticEvent, reason: string) => void;
   readonly handleOpen: (event: SyntheticEvent) => void;
   readonly inputReason: string | undefined;
   readonly inputValue: string;
-  readonly reason: string | undefined;
+  readonly setChangeDetails: Dispatch<SetStateAction<string | undefined>>;
   readonly setChangeReason: Dispatch<SetStateAction<string | undefined>>;
   readonly setCloseReason: Dispatch<SetStateAction<string | undefined>>;
-  readonly setDetails: Dispatch<SetStateAction<string | undefined>>;
   readonly setInputReason: Dispatch<SetStateAction<string | undefined>>;
   readonly setInputValue: Dispatch<SetStateAction<string>>;
   readonly setOpen: Dispatch<SetStateAction<boolean>>;
-  readonly setReason: Dispatch<SetStateAction<string | undefined>>;
   readonly open: boolean;
   readonly value: M extends true ? readonly T[] : T | null;
   readonly handleChange: (
@@ -71,13 +68,12 @@ export default function useAutocomplete<T>(
   props: Props<T, false | undefined>,
 ): State<T, false | undefined>;
 export default function useAutocomplete<T, M extends boolean | undefined>({
+  defaultChangeDetails,
   defaultChangeReason,
   defaultCloseReason,
-  defaultDetails,
   defaultInputReason,
   defaultInputValue = '',
   defaultOpen = false,
-  defaultReason,
   defaultValue,
   multiple = false,
   onChange,
@@ -106,28 +102,25 @@ export default function useAutocomplete<T, M extends boolean | undefined>({
   // States
   const [changeReason, setChangeReason] = useState(defaultChangeReason);
   const [closeReason, setCloseReason] = useState(defaultCloseReason);
-  const [details, setDetails] = useState(defaultDetails);
+  const [changeDetails, setChangeDetails] = useState(defaultChangeDetails);
   const [inputReason, setInputReason] = useState(defaultInputReason);
   const [inputValue, setInputValue] = useState(defaultInputValue);
   const [open, setOpen] = useState(defaultOpen);
-  const [reason, setReason] = useState(defaultReason);
   const [value, setValue] = useState(getDefaultValue);
 
   return {
+    changeDetails,
     changeReason,
     closeReason,
-    details,
     inputReason,
     inputValue,
     open,
-    reason,
+    setChangeDetails,
     setChangeReason,
     setCloseReason,
-    setDetails,
     setInputReason,
     setInputValue,
     setOpen,
-    setReason,
     setValue,
     value,
 
@@ -139,8 +132,8 @@ export default function useAutocomplete<T, M extends boolean | undefined>({
         newDetails?: string | undefined,
       ): void => {
         setValue(newValue);
-        setReason(newReason);
-        setDetails(newDetails);
+        setChangeReason(newReason);
+        setChangeDetails(newDetails);
         if (typeof onChange === 'function') {
           onChange(e, newValue, newReason, newDetails);
         }

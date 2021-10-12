@@ -5,54 +5,41 @@ import validateHandler from './validate-handler';
 interface Options {
   readonly args: readonly unknown[];
   readonly callback: string;
-  readonly defaultGetter: string;
-  readonly defaultValue: unknown;
-  readonly getter: string;
   readonly handler: string;
   readonly props?: Record<string, unknown> | undefined;
-  readonly value: unknown;
+  readonly states: Record<string, unknown>;
 }
 
 const ONCE = 1;
 
 export default function describeHandler(
   useHook: () => unknown,
-  {
-    args,
-    callback,
-    defaultGetter,
-    defaultValue,
-    getter,
-    handler,
-    props,
-    value,
-  }: Options,
+  { args, callback, handler, props, states }: Options,
 ): void {
   describe(handler, (): void => {
-    it(`should set \`${getter}\``, (): void => {
-      const initialProps: Record<string, unknown> = { ...props };
-      if (typeof defaultGetter === 'string') {
-        initialProps[defaultGetter] = defaultValue;
-      }
+    for (const [getter, value] of Object.entries(states)) {
+      it(`should set \`${getter}\``, (): void => {
+        const { result } = renderHook(useHook, {
+          initialProps: props,
+        });
 
-      const { result } = renderHook(useHook, { initialProps });
+        const state: Record<number | string | symbol, unknown> = validateRecord(
+          result.current,
+        );
 
-      const state: Record<number | string | symbol, unknown> = validateRecord(
-        result.current,
-      );
+        expect(state[getter]).not.toEqual(value);
 
-      expect(state[getter]).not.toEqual(value);
+        const handle = validateHandler(state[handler]);
+        act((): void => {
+          handle(...args);
+        });
 
-      const handle = validateHandler(state[handler]);
-      act((): void => {
-        handle(...args);
+        const newState: Record<number | string | symbol, unknown> =
+          validateRecord(result.current);
+
+        expect(newState[getter]).toBe(value);
       });
-
-      const newState: Record<number | string | symbol, unknown> =
-        validateRecord(result.current);
-
-      expect(newState[getter]).toBe(value);
-    });
+    }
 
     it(`should call \`${callback}\``, (): void => {
       const TEST_CALLBACK = jest.fn();
