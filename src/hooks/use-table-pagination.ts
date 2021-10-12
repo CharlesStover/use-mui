@@ -1,5 +1,6 @@
 import type { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from 'react';
 import { useCallback, useState } from 'react';
+import DEFAULT_PROPS from '../constants/default-props';
 
 export interface Props {
   readonly defaultPage?: number | undefined;
@@ -26,21 +27,16 @@ export interface State {
   ) => void;
 }
 
-const DEFAULT_PROPS: Props = {};
+const DEFAULT_PAGE = 0;
 const DEFAULT_ROWS_PER_PAGE = -1;
 const FIRST_PAGE = 0;
-const DEFAULT_PAGE = FIRST_PAGE;
 
-export default function useTablePagination(
-  props: Props = DEFAULT_PROPS,
-): State {
-  const {
-    defaultPage = DEFAULT_PAGE,
-    defaultRowsPerPage = DEFAULT_ROWS_PER_PAGE,
-    onPageChange,
-    onRowsPerPageChange,
-  } = props;
-
+export default function useTablePagination({
+  defaultPage = DEFAULT_PAGE,
+  defaultRowsPerPage = DEFAULT_ROWS_PER_PAGE,
+  onPageChange,
+  onRowsPerPageChange,
+}: Props = DEFAULT_PROPS): State {
   // States
   const [page, setPage] = useState(defaultPage);
   const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPage);

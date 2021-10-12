@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction, SyntheticEvent } from 'react';
 import { useCallback, useState } from 'react';
+import DEFAULT_PROPS from '../constants/default-props';
 
 interface Props {
   readonly defaultValue?: number | null | undefined;
@@ -14,12 +15,10 @@ export interface State {
   readonly value: number | null;
 }
 
-const DEFAULT_PROPS: Props = {};
-const DEFAULT_VALUE = null;
-
-export default function useRating(props: Props = DEFAULT_PROPS): State {
-  const { defaultValue = DEFAULT_VALUE, onChange } = props;
-
+export default function useRating({
+  defaultValue = null,
+  onChange,
+}: Props = DEFAULT_PROPS): State {
   const [value, setValue] = useState(defaultValue);
 
   return {

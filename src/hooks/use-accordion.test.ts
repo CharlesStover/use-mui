@@ -1,9 +1,16 @@
-import { renderHook } from '@testing-library/react-hooks';
 import { useAccordion } from '..';
+import describeHook from '../test-utils/describe-hook';
+import TestChangeEvent from '../test-utils/test-change-event';
 
-describe('useAccordion', (): void => {
-  it('should not be implemented', (): void => {
-    const { result } = renderHook(useAccordion);
-    expect(result.current).toBeUndefined();
-  });
-});
+describeHook(useAccordion, [
+  {
+    args: [new TestChangeEvent(), true],
+    callback: 'onChange',
+    defaultGetter: 'defaultExpanded',
+    defaultValue: false,
+    getter: 'expanded',
+    handler: 'handleChange',
+    setter: 'setExpanded',
+    value: true,
+  },
+]);

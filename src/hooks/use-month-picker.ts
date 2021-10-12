@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useState } from 'react';
+import DEFAULT_PROPS from '../constants/default-props';
 
 interface Props {
   readonly defaultDate?: unknown | undefined;
@@ -12,11 +13,10 @@ export interface State {
   readonly setDate: Dispatch<SetStateAction<unknown>>;
 }
 
-const DEFAULT_PROPS: Props = {};
-
-export default function useMonthPicker(props: Props = DEFAULT_PROPS): State {
-  const { defaultDate, onChange } = props;
-
+export default function useMonthPicker({
+  defaultDate,
+  onChange,
+}: Props = DEFAULT_PROPS): State {
   const [date, setDate] = useState(defaultDate);
 
   return {

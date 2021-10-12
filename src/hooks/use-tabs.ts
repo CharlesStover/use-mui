@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction, SyntheticEvent } from 'react';
 import { useCallback, useState } from 'react';
+import DEFAULT_PROPS from '../constants/default-props';
 
 interface Props {
   readonly defaultValue?: number | false | undefined;
@@ -14,11 +15,10 @@ export interface State {
   readonly value: number | false;
 }
 
-const DEFAULT_PROPS: Props = {};
-
-export default function useTabs(props: Props = DEFAULT_PROPS): State {
-  const { defaultValue = false, onChange } = props;
-
+export default function useTabs({
+  defaultValue = false,
+  onChange,
+}: Props = DEFAULT_PROPS): State {
   const [value, setValue] = useState(defaultValue);
 
   return {
