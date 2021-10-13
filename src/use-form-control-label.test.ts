@@ -1,10 +1,10 @@
 import { useFormControlLabel } from '.';
 import describeHook from './test-utils/describe-hook';
-import mapCheckedToTestChangeEvent from './test-utils/map-checked-to-test-change-event';
+import TestChangeEvent from './test-utils/test-change-event';
 
 describeHook(useFormControlLabel, [
   {
-    args: [mapCheckedToTestChangeEvent(true)],
+    args: [new TestChangeEvent(), true],
     callback: 'onChange',
     defaultGetter: 'defaultChecked',
     defaultValue: false,
