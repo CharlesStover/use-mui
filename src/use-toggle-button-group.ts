@@ -1,35 +1,28 @@
 import type { Dispatch, MouseEvent, SetStateAction } from 'react';
 import { useState } from 'react';
+import DEFAULT_PROPS from './constants/default-props';
 import useHandler from './hooks/use-handler';
 
-interface Props<T> {
+interface Props<T = unknown> {
   readonly defaultValue?: T | undefined;
-  readonly onChange: (event: MouseEvent<HTMLElement>, value: T) => void;
+  readonly onChange?:
+    | ((event: MouseEvent<HTMLElement>, value: T | undefined) => void)
+    | undefined;
 }
 
-interface TypedProps<T> extends Props<T> {
-  readonly defaultValue: T;
+export interface State<T = unknown> {
+  readonly setValue: Dispatch<SetStateAction<T | undefined>>;
+  readonly value: T | undefined;
+  readonly handleChange: (
+    event: MouseEvent<HTMLElement>,
+    value: T | undefined,
+  ) => void;
 }
 
-interface UntypedProps<T> extends Props<T> {
-  readonly defaultValue?: undefined;
-}
-
-export interface State<T> {
-  readonly handleChange: (event: MouseEvent<HTMLElement>, value: T) => void;
-  readonly setValue: Dispatch<SetStateAction<T>>;
-  readonly value: T;
-}
-
-export default function useToggleButtonGroup<T>(props: TypedProps<T>): State<T>;
-export default function useToggleButtonGroup<T>(
-  props?: UntypedProps<T>,
-): State<T | undefined>;
-export default function useToggleButtonGroup<T>(
-  props?: Props<T | undefined>,
-): State<T | undefined> {
-  const { defaultValue, onChange } = props ?? {};
-
+export default function useToggleButtonGroup<T = unknown>({
+  defaultValue,
+  onChange,
+}: Partial<Props<T>> = DEFAULT_PROPS): State<T> {
   const [value, setValue] = useState<T | undefined>(defaultValue);
 
   return {
