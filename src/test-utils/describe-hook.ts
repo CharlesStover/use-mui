@@ -2,27 +2,27 @@ import describeGetter from './describe-getter';
 import describeHandler from './describe-handler';
 import describeSetter from './describe-setter';
 
-interface HandlerOptions {
+interface HandlerOptions<P, S> {
   readonly args: readonly unknown[];
-  readonly callback: string;
-  readonly handler: string;
-  readonly props?: Record<string, unknown>;
-  readonly states: Record<string, unknown>;
+  readonly callback: string & keyof P;
+  readonly handler: string & keyof S;
+  readonly props?: Partial<P> | undefined;
+  readonly states: Partial<S>;
 }
 
-interface StateOptions {
-  readonly defaultGetter: string;
+interface StateOptions<P, S> {
+  readonly defaultGetter: string & keyof P;
   readonly defaultValue: unknown;
-  readonly getter: string;
-  readonly props?: Record<string, unknown>;
-  readonly setter: string;
+  readonly getter: string & keyof S;
+  readonly props?: Partial<P> | undefined;
+  readonly setter: string & keyof S;
   readonly value: unknown;
 }
 
-interface StateHandlerOptions {
+interface StateHandlerOptions<P, S> {
   readonly args: readonly unknown[];
-  readonly callback: string;
-  readonly handler: string;
+  readonly callback: string & keyof P;
+  readonly handler: string & keyof S;
 }
 
 interface NoStateHandlerOptions {
@@ -31,22 +31,22 @@ interface NoStateHandlerOptions {
   readonly handler?: undefined;
 }
 
-const filterOptionsByHandlerOptions = (
+const filterOptionsByHandlerOptions = <P, S>(
   options: unknown,
-): options is HandlerOptions =>
+): options is HandlerOptions<P, S> =>
   Object.prototype.hasOwnProperty.call(options, 'states');
 
-export default function describeHook<P extends unknown[], S>(
-  useHook: (...props: P) => S,
+export default function describeHook<P, S>(
+  useHook: (props?: Partial<P> | undefined) => S,
   tests: readonly (
-    | HandlerOptions
-    | (StateOptions & (NoStateHandlerOptions | StateHandlerOptions))
+    | HandlerOptions<P, S>
+    | (StateOptions<P, S> & (NoStateHandlerOptions | StateHandlerOptions<P, S>))
   )[],
 ): void {
   describe(useHook.name, (): void => {
     for (const options of tests) {
       // Test suite for an event handler that manges multiple states.
-      if (filterOptionsByHandlerOptions(options)) {
+      if (filterOptionsByHandlerOptions<P, S>(options)) {
         const { args, callback, handler, props, states } = options;
 
         describeHandler(useHook, {
@@ -90,13 +90,16 @@ export default function describeHook<P extends unknown[], S>(
         typeof callback === 'string' &&
         typeof handler === 'string'
       ) {
+        // TypeScript cannot infer that S[typeof getter] = T.
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+        const states: Partial<S> = {
+          [getter]: value,
+        } as unknown as Partial<S>;
         describeHandler(useHook, {
           args,
           callback,
           handler,
-          states: {
-            [getter]: value,
-          },
+          states,
         });
       }
     }

@@ -17,7 +17,7 @@ export interface State {
 export default function useMonthPicker({
   defaultDate,
   onChange,
-}: Props = DEFAULT_PROPS): State {
+}: Partial<Props> = DEFAULT_PROPS): State {
   const [date, setDate] = useState(defaultDate);
 
   return {

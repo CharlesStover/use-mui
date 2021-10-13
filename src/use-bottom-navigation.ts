@@ -17,7 +17,7 @@ export interface State<T> {
 export default function useBottomNavigation<T>({
   defaultValue,
   onChange,
-}: Props<T> = DEFAULT_PROPS): State<T> {
+}: Partial<Props<T>> = DEFAULT_PROPS): State<T> {
   const [value, setValue] = useState(defaultValue);
 
   return {

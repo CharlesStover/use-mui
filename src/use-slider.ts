@@ -33,7 +33,7 @@ export default function useSlider({
   defaultActiveThumb,
   defaultValue = DEFAULT_VALUE,
   onChange,
-}: Props = DEFAULT_PROPS): State {
+}: Partial<Props> = DEFAULT_PROPS): State {
   const [activeThumb, setActiveThumb] = useState(defaultActiveThumb);
   const [value, setValue] = useState(defaultValue);
 

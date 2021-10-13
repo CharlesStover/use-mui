@@ -20,7 +20,7 @@ export default function useTooltip({
   defaultOpen = false,
   onClose,
   onOpen,
-}: Props = DEFAULT_PROPS): State {
+}: Partial<Props> = DEFAULT_PROPS): State {
   const [open, setOpen] = useState(defaultOpen);
 
   return {

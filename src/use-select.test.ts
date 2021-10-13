@@ -1,13 +1,15 @@
 import type { SyntheticEvent } from 'react';
+import type { SelectState } from '.';
 import { useSelect } from '.';
 import describeHook from './test-utils/describe-hook';
 import mapValueToTestChangeEvent from './test-utils/map-value-to-test-change-event';
 import TestChangeEvent from './test-utils/test-change-event';
+import type { Props } from './use-select';
 
 const TEST_VALUE = 'test value';
 const TEST_CHANGE_EVENT: SyntheticEvent = mapValueToTestChangeEvent(TEST_VALUE);
 
-describeHook(useSelect, [
+describeHook<Props, SelectState>(useSelect, [
   {
     defaultGetter: 'defaultOpen',
     defaultValue: false,

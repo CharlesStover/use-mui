@@ -37,7 +37,7 @@ export default function useTablePagination({
   defaultRowsPerPage = DEFAULT_ROWS_PER_PAGE,
   onPageChange,
   onRowsPerPageChange,
-}: Props = DEFAULT_PROPS): State {
+}: Partial<Props> = DEFAULT_PROPS): State {
   // States
   const [page, setPage] = useState(defaultPage);
   const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPage);

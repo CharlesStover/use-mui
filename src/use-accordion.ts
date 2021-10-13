@@ -19,7 +19,7 @@ export interface State {
 export default function useAccordion({
   defaultExpanded = false,
   onChange,
-}: Props = DEFAULT_PROPS): State {
+}: Partial<Props> = DEFAULT_PROPS): State {
   const [expanded, setExpanded] = useState(defaultExpanded);
 
   return {

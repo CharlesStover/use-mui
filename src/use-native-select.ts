@@ -21,7 +21,7 @@ const DEFAULT_VALUE = '';
 export default function useNativeSelect({
   defaultValue = DEFAULT_VALUE,
   onChange,
-}: Props = DEFAULT_PROPS): State {
+}: Partial<Props> = DEFAULT_PROPS): State {
   const [value, setValue] = useState(defaultValue);
 
   return {

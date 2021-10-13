@@ -19,7 +19,7 @@ export interface State {
 export default function useTabs({
   defaultValue = false,
   onChange,
-}: Props = DEFAULT_PROPS): State {
+}: Partial<Props> = DEFAULT_PROPS): State {
   const [value, setValue] = useState(defaultValue);
 
   return {

@@ -2,19 +2,19 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import validateRecord from './validate-record';
 import validateHandler from './validate-handler';
 
-interface Options {
+interface Options<P, S> {
   readonly args: readonly unknown[];
-  readonly callback: string;
-  readonly handler: string;
-  readonly props?: Record<string, unknown> | undefined;
-  readonly states: Record<string, unknown>;
+  readonly callback: string & keyof P;
+  readonly handler: string & keyof S;
+  readonly props?: Partial<P> | undefined;
+  readonly states: Partial<S>;
 }
 
 const ONCE = 1;
 
-export default function describeHandler(
-  useHook: () => unknown,
-  { args, callback, handler, props, states }: Options,
+export default function describeHandler<P, S>(
+  useHook: (props?: Partial<P> | undefined) => S,
+  { args, callback, handler, props, states }: Options<P, S>,
 ): void {
   describe(handler, (): void => {
     for (const [getter, value] of Object.entries(states)) {

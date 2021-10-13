@@ -21,7 +21,7 @@ const DEFAULT_PAGE = 0;
 export default function usePagination({
   defaultPage = DEFAULT_PAGE,
   onChange,
-}: Props = DEFAULT_PROPS): State {
+}: Partial<Props> = DEFAULT_PROPS): State {
   // States
   const [page, setPage] = useState(defaultPage);
 

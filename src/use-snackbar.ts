@@ -23,7 +23,7 @@ export default function useSnackbar({
   defaultOpen = false,
   defaultReason,
   onClose,
-}: Props = DEFAULT_PROPS): State {
+}: Partial<Props> = DEFAULT_PROPS): State {
   const [open, setOpen] = useState(defaultOpen);
   const [reason, setReason] = useState(defaultReason);
 

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import DEFAULT_PROPS from './constants/default-props';
 import useHandler from './hooks/use-handler';
 
-interface Props<T> {
+export interface Props<T = unknown> {
   readonly defaultChild?: unknown | undefined;
   readonly defaultOpen?: boolean | undefined;
   readonly defaultValue?: T | string | undefined;
@@ -15,7 +15,7 @@ interface Props<T> {
     | undefined;
 }
 
-export interface State<T> {
+export interface State<T = unknown> {
   readonly child: unknown | undefined;
   readonly handleChange: (event: SelectChangeEvent<T>, child?: unknown) => void;
   readonly handleClose: (event: SyntheticEvent) => void;
@@ -27,14 +27,14 @@ export interface State<T> {
   readonly value: T | string;
 }
 
-export default function useSelect<T>({
+export default function useSelect<T = unknown>({
   defaultChild,
   defaultOpen = false,
   defaultValue = '',
   onChange,
   onClose,
   onOpen,
-}: Props<T> = DEFAULT_PROPS): State<T> {
+}: Partial<Props<T>> | undefined = DEFAULT_PROPS): State<T> {
   const [child, setChild] = useState(defaultChild);
   const [open, setOpen] = useState(defaultOpen);
   const [value, setValue] = useState(defaultValue);

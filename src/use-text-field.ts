@@ -19,7 +19,7 @@ export interface State {
 export default function useTextField({
   defaultValue = '',
   onChange,
-}: Props = DEFAULT_PROPS): State {
+}: Partial<Props> = DEFAULT_PROPS): State {
   const [value, setValue] = useState(defaultValue);
 
   return {

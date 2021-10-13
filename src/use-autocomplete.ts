@@ -63,11 +63,14 @@ export interface State<T, M extends boolean | undefined> {
 }
 
 export default function useAutocomplete<T>(
-  props: Props<T, true>,
+  props?: Partial<Props<T, true>> | undefined,
 ): State<T, true>;
 export default function useAutocomplete<T>(
-  props: Props<T, false | undefined>,
+  props?: Partial<Props<T, false | undefined>> | undefined,
 ): State<T, false | undefined>;
+export default function useAutocomplete<T>(
+  props?: Partial<Props<T, boolean | undefined>> | undefined,
+): State<T, boolean | undefined>;
 export default function useAutocomplete<T, M extends boolean | undefined>({
   defaultChangeDetails,
   defaultChangeReason,
@@ -81,7 +84,7 @@ export default function useAutocomplete<T, M extends boolean | undefined>({
   onClose,
   onInputChange,
   onOpen,
-}: Props<T, M> = DEFAULT_PROPS): State<T, M> {
+}: Partial<Props<T, M>> = DEFAULT_PROPS): State<T, M> {
   const getDefaultValue = (): M extends true ? readonly T[] : T | null => {
     if (typeof defaultValue !== 'undefined') {
       return defaultValue;

@@ -36,7 +36,7 @@ export default function useTreeView({
   defaultSelected = DEFAULT_TREE_VIEW_SELECTED,
   onNodeSelect,
   onNodeToggle,
-}: Props = DEFAULT_PROPS): State {
+}: Partial<Props> = DEFAULT_PROPS): State {
   const [expanded, setExpanded] = useState(defaultExpanded);
   const [selected, setSelected] = useState(defaultSelected);
 
