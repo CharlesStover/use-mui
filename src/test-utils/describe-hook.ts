@@ -1,3 +1,6 @@
+import { render } from '@testing-library/react';
+import { renderHook } from '@testing-library/react-hooks';
+import type { ReactElement } from 'react';
 import describeGetter from './describe-getter';
 import describeHandler from './describe-handler';
 import describeSetter from './describe-setter';
@@ -38,12 +41,18 @@ const filterOptionsByHandlerOptions = <P, S>(
 
 export default function describeHook<P, S>(
   useHook: (props?: Partial<P> | undefined) => S,
+  getElement: (state: S) => ReactElement,
   tests: readonly (
     | HandlerOptions<P, S>
     | (StateOptions<P, S> & (NoStateHandlerOptions | StateHandlerOptions<P, S>))
   )[],
 ): void {
   describe(useHook.name, (): void => {
+    it('should return component props', (): void => {
+      const { result } = renderHook(useHook);
+      render(getElement(result.current));
+    });
+
     for (const options of tests) {
       // Test suite for an event handler that manges multiple states.
       if (filterOptionsByHandlerOptions<P, S>(options)) {

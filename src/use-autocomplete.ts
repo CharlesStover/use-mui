@@ -1,3 +1,7 @@
+import type {
+  AutocompleteChangeDetails,
+  AutocompleteChangeReason,
+} from '@mui/material/Autocomplete';
 import type { Dispatch, SetStateAction, SyntheticEvent } from 'react';
 import { useState } from 'react';
 import DEFAULT_AUTOCOMPLETE_MULTIPLE_VALUE from './constants/default-autocomplete-multiple-value';
@@ -5,8 +9,8 @@ import DEFAULT_PROPS from './constants/default-props';
 import useHandler from './hooks/use-handler';
 
 export interface Props<T, M extends boolean | undefined> {
-  readonly defaultChangeDetails?: string | undefined;
-  readonly defaultChangeReason?: string | undefined;
+  readonly defaultChangeDetails?: AutocompleteChangeDetails<T> | undefined;
+  readonly defaultChangeReason?: AutocompleteChangeReason | undefined;
   readonly defaultCloseReason?: string | undefined;
   readonly defaultInputReason?: string | undefined;
   readonly defaultInputValue?: string | undefined;
@@ -21,8 +25,8 @@ export interface Props<T, M extends boolean | undefined> {
     | ((
         event: SyntheticEvent,
         value: M extends true ? readonly T[] : T,
-        reason: string,
-        details?: string,
+        reason: AutocompleteChangeReason,
+        details?: AutocompleteChangeDetails<T>,
       ) => void)
     | undefined;
   readonly onInputChange?:
@@ -30,16 +34,14 @@ export interface Props<T, M extends boolean | undefined> {
     | undefined;
 }
 
-export interface State<T, M extends boolean | undefined> {
-  readonly changeDetails: string | undefined;
+export interface State<T = unknown, M extends boolean | undefined = false> {
+  readonly changeDetails: AutocompleteChangeDetails<T> | undefined;
   readonly changeReason: string | undefined;
   readonly closeReason: string | undefined;
   readonly handleClose: (event: SyntheticEvent, reason: string) => void;
   readonly handleOpen: (event: SyntheticEvent) => void;
   readonly inputReason: string | undefined;
   readonly inputValue: string;
-  readonly setChangeDetails: Dispatch<SetStateAction<string | undefined>>;
-  readonly setChangeReason: Dispatch<SetStateAction<string | undefined>>;
   readonly setCloseReason: Dispatch<SetStateAction<string | undefined>>;
   readonly setInputReason: Dispatch<SetStateAction<string | undefined>>;
   readonly setInputValue: Dispatch<SetStateAction<string>>;
@@ -49,14 +51,20 @@ export interface State<T, M extends boolean | undefined> {
   readonly handleChange: (
     event: SyntheticEvent,
     value: M extends true ? readonly T[] : T,
-    reason: string,
-    details?: string,
+    reason: AutocompleteChangeReason,
+    details?: AutocompleteChangeDetails<T>,
   ) => void;
   readonly handleInputChange: (
     event: SyntheticEvent,
     value: string,
     reason: string,
   ) => void;
+  readonly setChangeDetails: Dispatch<
+    SetStateAction<AutocompleteChangeDetails<T> | undefined>
+  >;
+  readonly setChangeReason: Dispatch<
+    SetStateAction<AutocompleteChangeReason | undefined>
+  >;
   readonly setValue: Dispatch<
     SetStateAction<M extends true ? readonly T[] : T | null>
   >;
@@ -133,8 +141,8 @@ export default function useAutocomplete<T, M extends boolean | undefined>({
       (
         _e: SyntheticEvent,
         newValue: M extends true ? readonly T[] : T,
-        newReason: string,
-        newDetails?: string | undefined,
+        newReason: AutocompleteChangeReason,
+        newDetails?: AutocompleteChangeDetails<T> | undefined,
       ): void => {
         setValue(newValue);
         setChangeReason(newReason);

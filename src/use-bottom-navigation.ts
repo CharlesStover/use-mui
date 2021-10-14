@@ -3,12 +3,12 @@ import { useState } from 'react';
 import DEFAULT_PROPS from './constants/default-props';
 import useHandler from './hooks/use-handler';
 
-interface Props<T> {
+interface Props<T = unknown> {
   readonly defaultValue?: T | undefined;
   readonly onChange?: ((event: SyntheticEvent, value: T) => void) | undefined;
 }
 
-export interface State<T> {
+export interface State<T = unknown> {
   readonly handleChange: (event: SyntheticEvent, value: T) => void;
   readonly setValue: Dispatch<SetStateAction<T | undefined>>;
   readonly value: T | undefined;
