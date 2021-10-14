@@ -1,4 +1,4 @@
-import type { CloseReason } from '@mui/material';
+import type { CloseReason } from '@mui/material/SpeedDial';
 import type { Dispatch, SetStateAction, SyntheticEvent } from 'react';
 import { useState } from 'react';
 import DEFAULT_PROPS from './constants/default-props';
