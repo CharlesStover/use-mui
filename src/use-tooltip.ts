@@ -5,13 +5,13 @@ import useHandler from './hooks/use-handler';
 
 interface Props {
   readonly defaultOpen?: boolean | undefined;
-  readonly onClose?: ((event: SyntheticEvent) => void) | undefined;
-  readonly onOpen?: ((event: SyntheticEvent) => void) | undefined;
+  readonly onClose?: ((event: Event | SyntheticEvent) => void) | undefined;
+  readonly onOpen?: ((event: Event | SyntheticEvent) => void) | undefined;
 }
 
 export interface State {
-  readonly handleClose: (event: SyntheticEvent) => void;
-  readonly handleOpen: (event: SyntheticEvent) => void;
+  readonly handleClose: (event: Event | SyntheticEvent) => void;
+  readonly handleOpen: (event: Event | SyntheticEvent) => void;
   readonly open: boolean;
   readonly setOpen: Dispatch<SetStateAction<boolean>>;
 }

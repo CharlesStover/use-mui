@@ -8,13 +8,14 @@ interface Options<P, S> {
   readonly handler: string & keyof S;
   readonly props?: Partial<P> | undefined;
   readonly states: Partial<S>;
+  readonly strict?: boolean | undefined;
 }
 
 const ONCE = 1;
 
 export default function describeHandler<P, S>(
   useHook: (props?: Partial<P> | undefined) => S,
-  { args, callback, handler, props, states }: Options<P, S>,
+  { args, callback, handler, props, states, strict = true }: Options<P, S>,
 ): void {
   describe(handler, (): void => {
     for (const [getter, value] of Object.entries(states)) {
@@ -37,7 +38,11 @@ export default function describeHandler<P, S>(
         const newState: Record<number | string | symbol, unknown> =
           validateRecord(result.current);
 
-        expect(newState[getter]).toBe(value);
+        if (strict) {
+          expect(newState[getter]).toBe(value);
+        } else {
+          expect(newState[getter]).toEqual(value);
+        }
       });
     }
 

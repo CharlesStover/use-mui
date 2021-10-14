@@ -17,10 +17,10 @@ interface Props {
 }
 
 export interface State {
-  readonly expanded: readonly string[];
-  readonly selected: string | readonly string[];
-  readonly setExpanded: Dispatch<SetStateAction<readonly string[]>>;
-  readonly setSelected: Dispatch<SetStateAction<string | readonly string[]>>;
+  readonly expanded: string[];
+  readonly selected: string[];
+  readonly setExpanded: Dispatch<SetStateAction<string[]>>;
+  readonly setSelected: Dispatch<SetStateAction<string[]>>;
   readonly handleNodeSelect: (
     event: SyntheticEvent,
     nodeIds: string | readonly string[],
@@ -37,8 +37,12 @@ export default function useTreeView({
   onNodeSelect,
   onNodeToggle,
 }: Partial<Props> = DEFAULT_PROPS): State {
-  const [expanded, setExpanded] = useState(defaultExpanded);
-  const [selected, setSelected] = useState(defaultSelected);
+  const getDefaultExpanded = (): string[] => [...defaultExpanded];
+  const getDefaultSelected = (): string[] => [...defaultSelected];
+
+  // States
+  const [expanded, setExpanded] = useState(getDefaultExpanded);
+  const [selected, setSelected] = useState(getDefaultSelected);
 
   return {
     expanded,
@@ -49,14 +53,18 @@ export default function useTreeView({
     handleNodeSelect: useHandler(
       onNodeSelect,
       (_event: SyntheticEvent, nodeIds: string | readonly string[]): void => {
-        setSelected(nodeIds);
+        if (typeof nodeIds === 'string') {
+          setSelected([nodeIds]);
+        } else {
+          setSelected([...nodeIds]);
+        }
       },
     ),
 
     handleNodeToggle: useHandler(
       onNodeToggle,
       (_event: SyntheticEvent, nodeIds: readonly string[]): void => {
-        setExpanded(nodeIds);
+        setExpanded([...nodeIds]);
       },
     ),
   };

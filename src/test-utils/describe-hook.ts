@@ -11,6 +11,7 @@ interface HandlerOptions<P, S> {
   readonly handler: string & keyof S;
   readonly props?: Partial<P> | undefined;
   readonly states: Partial<S>;
+  readonly strict?: boolean | undefined;
 }
 
 interface StateOptions<P, S> {
@@ -19,6 +20,7 @@ interface StateOptions<P, S> {
   readonly getter: string & keyof S;
   readonly props?: Partial<P> | undefined;
   readonly setter: string & keyof S;
+  readonly strictGetter?: boolean | undefined;
   readonly value: unknown;
 }
 
@@ -26,12 +28,14 @@ interface StateHandlerOptions<P, S> {
   readonly args: readonly unknown[];
   readonly callback: string & keyof P;
   readonly handler: string & keyof S;
+  readonly strictHandler?: boolean | undefined;
 }
 
 interface NoStateHandlerOptions {
   readonly args?: undefined;
   readonly callback?: undefined;
   readonly handler?: undefined;
+  readonly strictHandler?: undefined;
 }
 
 const filterOptionsByHandlerOptions = <P, S>(
@@ -56,7 +60,7 @@ export default function describeHook<P, S>(
     for (const options of tests) {
       // Test suite for an event handler that manges multiple states.
       if (filterOptionsByHandlerOptions<P, S>(options)) {
-        const { args, callback, handler, props, states } = options;
+        const { args, callback, handler, props, states, strict } = options;
 
         describeHandler(useHook, {
           args,
@@ -64,6 +68,7 @@ export default function describeHook<P, S>(
           handler,
           props,
           states,
+          strict,
         });
 
         continue;
@@ -79,6 +84,8 @@ export default function describeHook<P, S>(
         handler,
         props,
         setter,
+        strictGetter,
+        strictHandler,
         value,
       } = options;
 
@@ -87,6 +94,7 @@ export default function describeHook<P, S>(
         defaultValue,
         getter,
         props,
+        strict: strictGetter,
         value,
       });
 
@@ -109,6 +117,7 @@ export default function describeHook<P, S>(
           callback,
           handler,
           states,
+          strict: strictHandler,
         });
       }
     }
