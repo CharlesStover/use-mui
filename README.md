@@ -508,12 +508,13 @@ import Slider from '@mui/material/Slider';
 import { useSlider } from 'use-mui';
 
 function MySlider() {
-  const { activeThumb, handleChange, value } = useSlider();
-  return (
-    <Slider activeThumb={activeThumb} onChange={handleChange} value={value} />
-  );
+  const { handleChange, value } = useSlider();
+  return <Slider onChange={handleChange} value={value} />;
 }
 ```
+
+Additionally, the `useSlider` hook returns an `activeThumb` property that can be
+used to determine the index of the last moved thumb.
 
 ### `SliderUnstyled`
 

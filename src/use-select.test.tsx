@@ -1,3 +1,4 @@
+import Select from '@mui/material/Select';
 import type { ReactElement, SyntheticEvent } from 'react';
 import type { SelectState } from '.';
 import { useSelect } from '.';
@@ -9,41 +10,59 @@ import type { Props } from './use-select';
 const TEST_VALUE = 'test value';
 const TEST_CHANGE_EVENT: SyntheticEvent = mapValueToTestChangeEvent(TEST_VALUE);
 
-describeHook<Props, SelectState>(useSelect, (): ReactElement => <>{null}</>, [
-  {
-    defaultGetter: 'defaultOpen',
-    defaultValue: false,
-    getter: 'open',
-    setter: 'setOpen',
-    value: true,
-  },
-  {
-    args: [TEST_CHANGE_EVENT, undefined],
-    callback: 'onChange',
-    defaultGetter: 'defaultValue',
-    defaultValue: '',
-    getter: 'value',
-    handler: 'handleChange',
-    setter: 'setValue',
-    value: TEST_VALUE,
-  },
-  {
-    args: [new TestChangeEvent()],
-    callback: 'onClose',
-    handler: 'handleClose',
-    props: {
-      defaultOpen: true,
+describeHook<Props, SelectState>(
+  useSelect,
+  ({
+    handleChange,
+    handleClose,
+    handleOpen,
+    open,
+    value,
+  }: SelectState): ReactElement => (
+    <Select
+      onChange={handleChange}
+      onClose={handleClose}
+      onOpen={handleOpen}
+      open={open}
+      value={value}
+    />
+  ),
+  [
+    {
+      defaultGetter: 'defaultOpen',
+      defaultValue: false,
+      getter: 'open',
+      setter: 'setOpen',
+      value: true,
     },
-    states: {
-      open: false,
+    {
+      args: [TEST_CHANGE_EVENT, undefined],
+      callback: 'onChange',
+      defaultGetter: 'defaultValue',
+      defaultValue: '',
+      getter: 'value',
+      handler: 'handleChange',
+      setter: 'setValue',
+      value: TEST_VALUE,
     },
-  },
-  {
-    args: [new TestChangeEvent()],
-    callback: 'onOpen',
-    handler: 'handleOpen',
-    states: {
-      open: true,
+    {
+      args: [new TestChangeEvent()],
+      callback: 'onClose',
+      handler: 'handleClose',
+      props: {
+        defaultOpen: true,
+      },
+      states: {
+        open: false,
+      },
     },
-  },
-]);
+    {
+      args: [new TestChangeEvent()],
+      callback: 'onOpen',
+      handler: 'handleOpen',
+      states: {
+        open: true,
+      },
+    },
+  ],
+);
