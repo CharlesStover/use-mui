@@ -655,7 +655,7 @@ import { useTablePagination } from 'use-mui';
 
 function MyTablePagination() {
   const { handlePageChange, handleRowsPerPageChange, page, rowsPerPage } =
-    usePagination();
+    useTablePagination();
   return (
     <TablePagination
       onPageChange={handlePageChange}
