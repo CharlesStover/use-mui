@@ -1,6 +1,6 @@
 {
   "name": "use-mui",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "Charles Stover <use-mui@charlesstover.com>",
   "description": "React hooks for Material UI",
   "homepage": "https://www.npmjs.com/package/use-mui",
@@ -76,7 +76,7 @@
   },
   "peerDependencies": {
     "@mui/material": "^5.0.0",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
   }
 }
